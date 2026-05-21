@@ -32,6 +32,7 @@ jobs:
           # 下载官方的 Makefile
           curl -sSL "https://raw.githubusercontent.com/felixonmars/dnsmasq-china-list/master/Makefile" -o "Makefile"
 
+          # 转换为 SmartDNS 格式
           make smartdns SERVER="china"
 
           for file in "${files[@]}"; do
