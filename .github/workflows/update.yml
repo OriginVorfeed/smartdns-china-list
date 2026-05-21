@@ -22,7 +22,7 @@ jobs:
           now=$(date +'%Y-%m-%d %H:%M')
 
           # 定义需要转换的文件列表
-          files=("accelerated-domains.china" "google.china" "apple.china")
+          files=("accelerated-domains.china" "google.china" "apple.china" "bogus-nxdomain.china")
 
           for file in "${files[@]}"; do
             # 下载原始文件
