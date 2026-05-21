@@ -36,6 +36,17 @@ jobs:
           make smartdns SERVER="china"
 
           for file in "${files[@]}"; do
+            target_file="$file.smartdns.conf"
+            
+            # 确保转换后的文件确实存在才进行处理
+            if [ -f "$target_file" ]; then
+              # 获取规则行数
+              line_count=$(wc -l < "$target_file" | xargs)
+
+              # 组装 Header 和内容
+              sed -i "1i #!name=$target_file\n#!homepage=https://github.com/OriginVorfeed/smartdns-china-list\n#!desc=Rules:$line_count Created:$now Publisher:OriginVorfeed" "$target_file"
+            fi
+
             # 清理原始文件
             rm "$file.conf"
           done
