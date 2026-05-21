@@ -1,0 +1,48 @@
+name: Update SmartDNS Rules
+
+on:
+  schedule:
+    - cron: '0 0 * * *' # 每天凌晨自动运行
+  workflow_dispatch: # 支持手动触发
+
+# 显式赋予写入权限
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Download and Convert
+        run: |
+          # 设置当前时间（格式：yyyy-MM-dd HH:mm）
+          now=$(date +'%Y-%m-%d %H:%M')
+
+          # 定义需要转换的文件列表
+          files=("accelerated-domains.china" "google.china" "apple.china")
+
+          for file in "${files[@]}"; do
+            # 下载原始文件
+            curl -sSL "https://raw.githubusercontent.com/felixonmars/dnsmasq-china-list/master/$file.conf" -o "$file.conf"
+          done
+
+          # 下载官方的 Makefile
+          curl -sSL "https://raw.githubusercontent.com/felixonmars/dnsmasq-china-list/master/Makefile" -o "Makefile"
+
+          make smartdns SERVER="china"
+
+          for file in "${files[@]}"; do
+            # 清理原始文件
+            rm "$file.conf"
+          done
+
+      - name: Git push
+        run: |
+          git config --local user.email "actions@github.com"
+          git config --local user.name "GitHub Action"
+          git add *.smartdns.conf
+          git commit -m "Update rules: $(date)" || exit 0
+          git push
