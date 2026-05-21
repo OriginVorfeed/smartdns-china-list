@@ -12,15 +12,15 @@
 
 每套规则提供2个链接，第1个需要代理才能稳定访问，第2个可以直接访问，但会延迟12小时。
 
-- **accelerated-domains.china.smartdns.list**：
-  - [https://raw.githubusercontent.com/OriginVorfeed/smartdns-china-list/master/accelerated-domains.china.smartdns.list](https://raw.githubusercontent.com/OriginVorfeed/smartdns-china-list/master/accelerated-domains.china.smartdns.list)
-  - [https://cdn.jsdelivr.net/gh/OriginVorfeed/smartdns-china-list@master/accelerated-domains.china.smartdns.list](https://cdn.jsdelivr.net/gh/OriginVorfeed/smartdns-china-list@master/accelerated-domains.china.smartdns.list)
-- **apple.china.smartdns.list**：
-  - [https://raw.githubusercontent.com/OriginVorfeed/smartdns-china-list/master/apple.china.smartdns.list](https://raw.githubusercontent.com/OriginVorfeed/smartdns-china-list/master/apple.china.smartdns.list)
-  - [https://cdn.jsdelivr.net/gh/OriginVorfeed/smartdns-china-list@master/apple.china.smartdns.list](https://cdn.jsdelivr.net/gh/OriginVorfeed/smartdns-china-list@master/apple.china.smartdns.list)
-- **google.china.smartdns.list**：
-  - [https://raw.githubusercontent.com/OriginVorfeed/smartdns-china-list/master/google.china.smartdns.list](https://raw.githubusercontent.com/OriginVorfeed/smartdns-china-list/master/google.china.smartdns.list)
-  - [https://cdn.jsdelivr.net/gh/OriginVorfeed/smartdns-china-list@master/google.china.smartdns.list](https://cdn.jsdelivr.net/gh/OriginVorfeed/smartdns-china-list@master/google.china.smartdns.list)
+- **accelerated-domains.china.smartdns.conf**：
+  - [https://raw.githubusercontent.com/OriginVorfeed/smartdns-china-list/master/accelerated-domains.china.smartdns.conf](https://raw.githubusercontent.com/OriginVorfeed/smartdns-china-list/master/accelerated-domains.china.smartdns.conf)
+  - [https://cdn.jsdelivr.net/gh/OriginVorfeed/smartdns-china-list@master/accelerated-domains.china.smartdns.conf](https://cdn.jsdelivr.net/gh/OriginVorfeed/smartdns-china-list@master/accelerated-domains.china.smartdns.conf)
+- **apple.china.smartdns.conf**：
+  - [https://raw.githubusercontent.com/OriginVorfeed/smartdns-china-list/master/apple.china.smartdns.conf](https://raw.githubusercontent.com/OriginVorfeed/smartdns-china-list/master/apple.china.smartdns.conf)
+  - [https://cdn.jsdelivr.net/gh/OriginVorfeed/smartdns-china-list@master/apple.china.smartdns.conf](https://cdn.jsdelivr.net/gh/OriginVorfeed/smartdns-china-list@master/apple.china.smartdns.conf)
+- **google.china.smartdns.conf**：
+  - [https://raw.githubusercontent.com/OriginVorfeed/smartdns-china-list/master/google.china.smartdns.conf](https://raw.githubusercontent.com/OriginVorfeed/smartdns-china-list/master/google.china.smartdns.conf)
+  - [https://cdn.jsdelivr.net/gh/OriginVorfeed/smartdns-china-list@master/google.china.smartdns.conf](https://cdn.jsdelivr.net/gh/OriginVorfeed/smartdns-china-list@master/google.china.smartdns.conf)
 
 对于自建DNS，我们的目标
 
