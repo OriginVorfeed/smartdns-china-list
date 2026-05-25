@@ -54,7 +54,7 @@
   # 通过代理访问海外 DNS 时，解析到的 IP 也是海外的。设置 subnet 后，可以让海外 DNS 尝试返回 subnet 所在地区的 IP。
   server-tls 8.8.8.8 -proxy proxy -subnet 117.76.117.0/24
 
-  # 设置访问海外 DNS 的代理。如果上游为 UDP DNS，需要代理也支持 UDP 转发。
+  # 设置访问海外 DNS 的代理。如果上游为 UDP DNS，代理需支持 UDP 转发。
   proxy-server socks5://127.0.0.1:1080 -name proxy
   ```
 
@@ -71,11 +71,11 @@
 #!/bin/bash
 set -e
 
-#SmartDNS组名，在这里自定义
+# SmartDNS 组名，在这里自定义
 GROUP="china"
-#配置文件路径，可以自行修改
+# 配置文件路径，可以自行修改
 CONFDIR="/root/dnsmasq-china-list"
-#dnsmasq-china-list下载链接，可以按需替换成镜像站链接
+# dnsmasq-china-list 下载链接，可以按需替换成镜像站链接
 DOWNLOAD_URL="https://raw.githubusercontent.com/felixonmars/dnsmasq-china-list/master"
 
 WORKDIR="$(mktemp -d)"
