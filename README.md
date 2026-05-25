@@ -1,18 +1,18 @@
 # smartdns-china-list
 
-你好，欢迎来到Vorfeed的欢乐满满翻墙提高班。
+你好，欢迎来到 Vorfeed 的欢乐满满翻墙提高班。
 
-本项目是**SmartDNS、Xray、Shadowrocket、SingBox**统一分流规则的一部分，通过严格同步[dnsmasq-china-list](https://github.com/felixonmars/dnsmasq-china-list)，保证多端分流规则的一致性。
+本项目是 **SmartDNS、Xray、Shadowrocket、SingBox** 统一分流规则的一部分，通过严格同步 [dnsmasq-china-list](https://github.com/felixonmars/dnsmasq-china-list)，保证多端分流规则的一致性。
 
-- Shadowrocket规则：[shadowrocket-china-list](https://github.com/OriginVorfeed/shadowrocket-china-list)
+- Shadowrocket 规则：[shadowrocket-china-list](https://github.com/OriginVorfeed/shadowrocket-china-list)
 
-- Xray规则：[xray-china-list](https://github.com/OriginVorfeed/xray-china-list)
+- Xray 规则：[xray-china-list](https://github.com/OriginVorfeed/xray-china-list)
 
-- SingBox规则：[singbox-china-list](https://github.com/OriginVorfeed/singbox-china-list)
+- SingBox 规则：[singbox-china-list](https://github.com/OriginVorfeed/singbox-china-list)
 
 ## 规则说明
 
-定时执行dnsmasq-china-list自带的[Makefile](https://github.com/felixonmars/dnsmasq-china-list/blob/master/Makefile)脚本，转换为对应的**SmartDNS规则**。
+定时执行 dnsmasq-china-list 自带的 [Makefile](https://github.com/felixonmars/dnsmasq-china-list/blob/master/Makefile) 脚本，转换为对应的 **SmartDNS 规则**。
 
 每套规则提供2个链接，第1个需要代理才能稳定访问，第2个可以直接访问，但会延迟12小时。
 
@@ -49,16 +49,72 @@
 
   # 不会解析 china 或任何指定了组名的域名。
   # -proxy proxy：各种海外 DNS 可谓是 DNS 污染的重灾区，通过设置代理，可以完美解决此类问题。
-  # -subnet 117.76.117.0/24：需改成自己的公网 IP，并把第4个数字改为0。
+  # 同时还能防止海外 DNS 泄露给本地 ISP，可谓一举两得。
+  # -subnet 117.76.117.0/24：需改成自己的公网 IP，并把第4个数字改为0。一定要改，不然不生效。
   # 通过代理访问海外 DNS 时，解析到的 IP 也是海外的。设置 subnet 后，可以让海外 DNS 尝试返回 subnet 所在地区的 IP。
   server-tls 8.8.8.8 -proxy proxy -subnet 117.76.117.0/24
 
-  # 设置访问海外 DNS 的代理。如果上游为 UDP DNS，需要代理也支持 UDP 协议。
+  # 设置访问海外 DNS 的代理。如果上游为 UDP DNS，需要代理也支持 UDP 转发。
   proxy-server socks5://127.0.0.1:1080 -name proxy
   ```
 
 - 按需下载 [规则说明](#规则说明) 里的规则，并放置在 `/root/dnsmasq-china-list/` 目录内。
-- 重启 SmartDNS。
+- 重启 SmartDNS。至此，你拥有了一台杜绝 DNS 污染、且海外 DNS 不会泄露给本地 ISP 的自建 DNS。
+
+## 定时任务脚本
+
+虽然白名单分流的一大好处就在于，就算不更新也能保持比较好的直连体验。
+
+但如果你愿意配置自己的定时任务，就能自定义那个固定为 china 的组名。
+
+```bash
+#!/bin/bash
+set -e
+
+#SmartDNS组名，在这里自定义
+GROUP="china"
+#配置文件路径，可以自行修改
+CONFDIR="/root/dnsmasq-china-list"
+#dnsmasq-china-list下载链接，可以按需替换成镜像站链接
+DOWNLOAD_URL="https://raw.githubusercontent.com/felixonmars/dnsmasq-china-list/master"
+
+WORKDIR="$(mktemp -d)"
+cd "$WORKDIR"|| exit 1
+
+echo "Checking whether the configuration folder exists..."
+[ -d "$CONFDIR" ] || mkdir -p "$CONFDIR"
+
+CONF_WITH_SERVERS=(accelerated-domains.china apple.china google.china)
+CONF_SIMPLE=(bogus-nxdomain.china)
+
+echo "Downloading latest configurations..."
+for _conf in "${CONF_WITH_SERVERS[@]}" "${CONF_SIMPLE[@]}"; do
+  wget "$DOWNLOAD_URL/$_conf.conf"
+done
+wget "$DOWNLOAD_URL/Makefile"
+
+echo "Installing new configurations..."
+make smartdns SERVER="$GROUP"
+for _conf in "${CONF_WITH_SERVERS[@]}" "${CONF_SIMPLE[@]}"; do
+  cp "$_conf.smartdns.conf" "$CONFDIR/$_conf.smartdns.conf"
+done
+
+echo "Restarting smartdns service..."
+if command -v systemctl >/dev/null 2>&1; then
+  systemctl restart smartdns
+elif command -v service >/dev/null 2>&1; then
+  service smartdns restart
+elif command -v rc-service >/dev/null 2>&1; then
+  rc-service smartdns restart
+elif [ -x "/etc/init.d/smartdns" ]; then
+  /etc/init.d/smartdns restart
+else
+  echo "Please restart smartdns manually."
+fi
+
+echo "Cleaning up..."
+[ -d "$WORKDIR" ] && rm -rf "$WORKDIR"
+```
 
 ## 常见问题
 
