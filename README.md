@@ -44,7 +44,7 @@
   conf-file /root/dnsmasq-china-list/bogus-nxdomain.china.smartdns.conf
 
   # -group china：定时生成规则的组名，固定为 china。
-  # -exclude-default-group：将 DNS 服务器从默认组中排除，仅用于解析 china 组的域名。
+  # -exclude-default-group：将这条 DNS 配置从默认组中排除，仅用于解析 china 组的域名。
   server 223.5.5.5 -group china -exclude-default-group
 
   # 不会解析 china 或任何指定了组名的域名。
@@ -52,7 +52,7 @@
   # 同时还能防止海外 DNS 泄露给本地 ISP，可谓一举两得。
   # -subnet 117.76.117.0/24：需改成自己的公网 IP，并把第4个数字改为0。一定要改，不然不生效。
   # 通过代理访问海外 DNS 时，解析到的 IP 也是海外的。设置 subnet 后，可以让海外 DNS 尝试返回 subnet 所在地区的 IP。
-  server-tls 8.8.8.8 -proxy proxy -subnet 117.76.117.0/24
+  server 8.8.8.8 -proxy proxy -subnet 117.76.117.0/24
 
   # 设置访问海外 DNS 的代理。如果上游为 UDP DNS，代理需支持 UDP 转发。
   proxy-server socks5://127.0.0.1:1080 -name proxy
