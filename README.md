@@ -58,7 +58,7 @@
   proxy-server socks5://127.0.0.1:1080 -name proxy
   ```
 
-- 按需下载 [规则说明](#规则说明) 里的规则，并放置在 `/root/dnsmasq-china-list/` 目录内。
+- 按需下载 [规则说明](#规则说明) 里的规则，并放置在 `/root/dnsmasq-china-list` 目录内。
 - 重启 SmartDNS 后，你就拥有了一台杜绝 DNS 污染，且海外 DNS 不会泄露给本地 ISP 的自建 DNS。
 
 ## 定时任务脚本
