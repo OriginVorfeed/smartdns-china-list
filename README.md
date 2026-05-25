@@ -116,6 +116,27 @@ echo "Cleaning up..."
 [ -d "$WORKDIR" ] && rm -rf "$WORKDIR"
 ```
 
+## 验证配置
+
+ - 开启 SmartDNS 日志
+
+  ```conf
+  log-level info
+  log-console yes
+  ```
+
+ - 进行以下测试：
+
+  ```shell
+  nslookup google.com 127.0.0.1
+  journalctl -eu smartdns | grep google.com | grep group
+  # 结果应包含：group: default，不应包含：group: china
+
+  nslookup baidu.com 127.0.0.1
+  journalctl -eu smartdns | grep baidu.com | grep group
+  # 结果应包含：group: china，不应包含：group: default
+  ```
+ 
 ## 常见问题
 
 - **proxy + subnet 那么美好，还需要分流吗？**
