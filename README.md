@@ -130,11 +130,11 @@ echo "Cleaning up..."
   ```shell
   nslookup google.com 127.0.0.1
   journalctl -eu smartdns | grep google.com | grep group
-  # 结果应包含：group: default，不应包含：group: china
+  # 结果应包含 group: default，不应包含 group: china
 
   nslookup baidu.com 127.0.0.1
   journalctl -eu smartdns | grep baidu.com | grep group
-  # 结果应包含：group: china，不应包含：group: default
+  # 结果应包含 group: china，不应包含 group: default
   ```
  
 ## 常见问题
