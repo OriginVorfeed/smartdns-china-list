@@ -31,10 +31,10 @@
 
 ## 使用方法
 
-- 修改[smartdns.conf配置文件](https://pymumu.github.io/smartdns/configuration/)
+- 修改 [smartdns.conf 配置文件](https://pymumu.github.io/smartdns/configuration/)
 
   ```conf
-  # 这3套规则里的域名一般不会被 DNS 污染，推荐一起使用，提升直连体验。
+  # 这3套规则里的域名不太会被 DNS 污染，推荐一起使用，提升直连体验。
   conf-file /root/dnsmasq-china-list/accelerated-domains.china.smartdns.conf
   conf-file /root/dnsmasq-china-list/apple.china.smartdns.conf
   conf-file /root/dnsmasq-china-list/google.china.smartdns.conf
@@ -47,14 +47,18 @@
   # -exclude-default-group：将 DNS 服务器从默认组中排除，仅用于解析 china 组的域名。
   server 223.5.5.5 -group china -exclude-default-group
 
-  # 不会解析 china 或任何指定了组名的域名
+  # 不会解析 china 或任何指定了组名的域名。
   # -proxy proxy：各种海外 DNS 可谓是 DNS 污染的重灾区，通过设置代理，可以完美解决此类问题。
-  # -subnet 117.76.117.0/24：需改成自己的公网 IP，并把第4个数字改为0。通过代理访问海外 DNS 时，解析到的 IP 也是海外的。设置 subnet 后，可以让海外 DNS 尝试返回 subnet 所在区域的 IP。
+  # -subnet 117.76.117.0/24：需改成自己的公网 IP，并把第4个数字改为0。
+  # 通过代理访问海外 DNS 时，解析到的 IP 也是海外的。设置 subnet 后，可以让海外 DNS 尝试返回 subnet 所在地区的 IP。
   server-tls 8.8.8.8 -proxy proxy -subnet 117.76.117.0/24
+
+  # 设置访问海外 DNS 的代理。如果上游为 UDP DNS，需要代理也支持 UDP 协议。
+  proxy-server socks5://127.0.0.1:1080 -name proxy
   ```
 
-- 按需下载 [规则说明](#规则说明) 里的规则，放到 `/root/dnsmasq-china-list/` 目录。
-- 重启SmartDNS
+- 按需下载 [规则说明](#规则说明) 里的规则，并放置在 `/root/dnsmasq-china-list/` 目录内。
+- 重启 SmartDNS。
 
 ## 常见问题
 
