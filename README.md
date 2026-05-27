@@ -15,19 +15,24 @@
 定时执行 dnsmasq-china-list 自带的 [Makefile](https://github.com/felixonmars/dnsmasq-china-list/blob/master/Makefile) 脚本，转换为对应的 **SmartDNS 规则**。
 
 每套规则提供2个链接，第1个需要代理才能稳定访问，第2个可以直接访问，但会延迟12小时。
+
 - **accelerated-domains.china.smartdns.conf**：
+
   - [https://raw.githubusercontent.com/OriginVorfeed/smartdns-china-list/master/accelerated-domains.china.smartdns.conf](https://raw.githubusercontent.com/OriginVorfeed/smartdns-china-list/master/accelerated-domains.china.smartdns.conf)
   - [https://cdn.jsdelivr.net/gh/OriginVorfeed/smartdns-china-list@master/accelerated-domains.china.smartdns.conf](https://cdn.jsdelivr.net/gh/OriginVorfeed/smartdns-china-list@master/accelerated-domains.china.smartdns.conf)
 
 - **apple.china.smartdns.conf**：
+
   - [https://raw.githubusercontent.com/OriginVorfeed/smartdns-china-list/master/apple.china.smartdns.conf](https://raw.githubusercontent.com/OriginVorfeed/smartdns-china-list/master/apple.china.smartdns.conf)
   - [https://cdn.jsdelivr.net/gh/OriginVorfeed/smartdns-china-list@master/apple.china.smartdns.conf](https://cdn.jsdelivr.net/gh/OriginVorfeed/smartdns-china-list@master/apple.china.smartdns.conf)
 
 - **google.china.smartdns.conf**：
+
   - [https://raw.githubusercontent.com/OriginVorfeed/smartdns-china-list/master/google.china.smartdns.conf](https://raw.githubusercontent.com/OriginVorfeed/smartdns-china-list/master/google.china.smartdns.conf)
   - [https://cdn.jsdelivr.net/gh/OriginVorfeed/smartdns-china-list@master/google.china.smartdns.conf](https://cdn.jsdelivr.net/gh/OriginVorfeed/smartdns-china-list@master/google.china.smartdns.conf)
 
 - **bogus-nxdomain.china.smartdns.conf**：
+
   - [https://raw.githubusercontent.com/OriginVorfeed/smartdns-china-list/master/bogus-nxdomain.china.smartdns.conf](https://raw.githubusercontent.com/OriginVorfeed/smartdns-china-list/master/bogus-nxdomain.china.smartdns.conf)
   - [https://cdn.jsdelivr.net/gh/OriginVorfeed/smartdns-china-list@master/bogus-nxdomain.china.smartdns.conf](https://cdn.jsdelivr.net/gh/OriginVorfeed/smartdns-china-list@master/bogus-nxdomain.china.smartdns.conf)
 
@@ -61,6 +66,7 @@
   ```
 
 - 按需下载 [规则说明](#规则说明) 里的规则，并放置在 `/root/dnsmasq-china-list` 目录内。
+
 - 重启 SmartDNS 后，你就拥有了一台杜绝 DNS 污染，且海外 DNS 不会泄露给本地 ISP 的自建 DNS。
 
 ## 定时任务脚本
