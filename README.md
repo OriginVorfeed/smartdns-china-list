@@ -69,6 +69,27 @@
 
 - 重启 SmartDNS 后，你就拥有了一台杜绝 DNS 污染，且海外 DNS 不会泄露给本地 ISP 的自建 DNS。
 
+## 验证配置
+
+ - 开启 SmartDNS 日志
+
+  ```conf
+  log-level info
+  log-console yes
+  ```
+
+ - 进行以下测试：
+
+  ```shell
+  nslookup google.com 127.0.0.1
+  journalctl -eu smartdns | grep google.com | grep group
+  # 结果应包含 group: default，不应包含 group: china
+
+  nslookup baidu.com 127.0.0.1
+  journalctl -eu smartdns | grep baidu.com | grep group
+  # 结果应包含 group: china，不应包含 group: default
+  ```
+
 ## 定时任务脚本
 
 虽然白名单分流的一大好处就在于，就算不更新也能保持比较好的直连体验。
@@ -123,27 +144,6 @@ fi
 echo "Cleaning up..."
 [ -d "$WORKDIR" ] && rm -rf "$WORKDIR"
 ```
-
-## 验证配置
-
- - 开启 SmartDNS 日志
-
-  ```conf
-  log-level info
-  log-console yes
-  ```
-
- - 进行以下测试：
-
-  ```shell
-  nslookup google.com 127.0.0.1
-  journalctl -eu smartdns | grep google.com | grep group
-  # 结果应包含 group: default，不应包含 group: china
-
-  nslookup baidu.com 127.0.0.1
-  journalctl -eu smartdns | grep baidu.com | grep group
-  # 结果应包含 group: china，不应包含 group: default
-  ```
  
 ## 常见问题
 
